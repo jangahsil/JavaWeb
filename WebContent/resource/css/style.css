@@ -1,0 +1,31 @@
+@CHARSET "EUC-KR";
+	/* #main-menu{color:blue;} */
+	
+	/* input[type="text"]{ color:blue; } */
+	
+	/* 	#lecture-search-form input[type="text"] 
+	{ color:red; }  */
+	
+	/* #lecture-search-form label + input[type] 
+	{ color:red; } */
+	
+	/* 	#lecture-search-form label ~ input[type="text"] 
+	{ color:red; } */
+	
+	#lecture-search-form  form label + input[type]
+	{ color:red; } 
+	
+	#main-menu li a
+	{
+		color:green;
+	}
+	
+	#main-menu li:first-child a
+	{
+		color:pink;
+	}
+	
+	#main-menu li:first-child  + li a
+	{
+		color:orange;
+	}

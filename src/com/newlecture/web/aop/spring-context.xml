@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- service -->
+	<bean id="prince" class="com.newlecture.web.dao.mybatis.MyBatisNoticeDao"/>
+	<!-- 넌 왕자 : 메인업무 -->
+	<bean id="logBeforeAdvice" class="com.newlecture.web.aop.LogBeforeAdvice"/>
+	<bean id="logAroundAdvice" class="com.newlecture.web.aop.LogAroundAdvice"/>
+	<!-- 넌 보조업무 -->
+	
+	<!-- 원하는 녀석만으로 한정 -->
+	<bean id="noticePointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedNames">
+			<list>
+				<value>getNotices</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="noticeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut" ref="noticePointcut"></property>
+		<property name="advice" ref="logBeforeAdvice"></property>
+	</bean>
+	<bean id="noticeDao" class="org.springframework.aop.framework.ProxyFactoryBean">
+	<!-- 넌 proxy : 보조업무와 주업무를 모두 가지고 호출 -->
+	
+		<property name="target" ref="prince"/>
+		<!-- 프락시에 target을 꽂아줌 -->
+		
+		<property name="interceptorNames">	
+			<list>
+				<value>noticeAdvisor</value>
+				<!-- <value>logBeforeAdvice</value>
+				<value>logAroundAdvice</value> -->
+				<!-- 보조업무 끼는 중 -->
+			</list>
+		</property>
+	</bean>
+
+    <!-- more bean definitions for services go here -->
+
+</beans>
