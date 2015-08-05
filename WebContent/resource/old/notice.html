@@ -223,6 +223,11 @@ body {
 	width:400px;
 }
 
+#notice td:FIRST-CHILD+td{
+	text-align: left;
+	text-indent: 10px;
+}
+
 #notice td:FIRST-CHILD+td+td, 
 #notice th:FIRST-CHILD+th+th{
 	width:100px;
@@ -244,6 +249,37 @@ body {
 
 .notice-path{
 }
+
+/* ----------------------페이지 번호---------------------- */
+#pager li{
+	width: 25px;
+	height: 25px;
+	line-height: 25px; /* 수직정렬 */
+	text-align: center; /* 수평정렬 */
+	border: solid 1px black;
+	float: left;
+}
+
+#pager{
+	display: inline-block;
+}
+
+#pager > *{
+	float: left;
+}
+
+#pager p{
+	height:25px;
+	line-height:25px;
+	display: inline-block;
+	text-align: center;
+}
+
+#pager ul{
+	overflow: auto;/* 수직만 맞추려면 overflow, 수직수평길이는 inline-block */
+	float: left;
+}
+
 /* ---------------------가구 배치--------------------- */
 .content-wrapper{
 	position:relative;
@@ -434,8 +470,9 @@ body {
 					<p>1 of 3 pages</p>
 				</section>
 
-				<nav>
-					<h1>페이지</h1>
+				<nav id="pager">
+					<h1 class="hidden">페이지</h1>
+					<p><a href="">이전</a><p>
 					<ul>
 						<li><a href="">1</a></li>
 						<li><a href="">2</a></li>
@@ -443,6 +480,7 @@ body {
 						<li><a href="">4</a></li>
 						<li><a href="">5</a></li>
 					</ul>
+					<p><a href="">다음</a><p>
 				</nav>
 			</section>
 			</main>
