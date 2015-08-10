@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.addEventListener("load", function{
+		var btnParentClose = document.getElementById("btn-parent-close");
+		btnParentClose.onclick = function name() {
+			parent.close()
+		};
+	});
+</script>
+</head>
+<body>
+	<input type="button" value="부모 창 닫기"  id="btn-parent-close" />
+	안쪽 윈도우입니다.
+</body>
+</html>
