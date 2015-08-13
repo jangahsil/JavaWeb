@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*  	window.addEventListener("load", function () {
+	 document.body.childNodes[0].value="안녕?";
+	 alert(document.body.childNodes.length); 
+	 var size = document.body.childNodes.length;
+	 var nodes = document.body.childNodes;
+	
+	 for(var i=0; i<size; i++){
+	 alert(nodes[i].nodeType); 3,1,3으로 출력 
+	 } 
+	 var photos = document.getElementById("photos");
+	 var items = photos.getElementsByTagName("img");
+	
+	 for(var i=0; i<items.length; i++){
+	 items[i].src = "images/pic1.png";
+	 }  
+	
+
+	 var photos = document.getElementById("photos");
+	 var items = photos.getElementsByTagName("img");
+
+	 var btnImgChange1 = document.getElementById("btn-img-change1");
+	 var btnImgChange2 = document.getElementById("btn-img-change2");
+
+	 btnImgChange1.onclick = function() {
+
+	 var txtImage = document.getElementById("txt-image");
+
+	 for(var i=0; i<items.length; i++){
+	 items[i].src = "../image/"+txtImage.value; 
+	 } 
+	 items[0].src = "../image/" + txtImage.value;
+	 items[0].style.border = "5px solid pink";
+	 items[0].width = "700px";
+	 items[0].height = "300px";
+	 }
+	 btnImgChange2.onclick = function() {
+
+	 var cbImage = document.getElementById("cb-image");
+
+	 for (var i = 0; i < items.length; i++) {
+	 items[i].src = "../image/" + cbImage.value;
+	 }
+	 }
+	 }); */
+
+	window.addEventListener("load", function() {
+
+		var photos = document.getElementById("photos");
+		var items = photos.getElementsByTagName("img");
+
+		var btnImgChange1 = document.getElementById("btn-img-change1");
+
+		btnImgChange1.onclick = function() {
+
+			var txtImage = document.getElementById("txt-image");
+			
+			for (var i = 0; i < items.length; i++) {
+				items[i].src = "../image/" + txtImage.value;
+			} /* 이 for문 주석하면 하나만 밑에 스타일 적용 , 안하면 전부다 적용 됨 */
+				
+			items[0].src="../image/"+txtImage.value;
+			items[0].style.border="5px solid red";
+			items[0].style.width="500px";
+		}
+		
+		var btnImgChange2 = document.getElementById("btn-img-change2");
+
+		btnImgChange2.onclick = function() {
+			
+			var cbImage = document.getElementById("cb-image");
+			
+			for (var i = 0; i < items.length; i++) {
+				items[i].src = "../image/" + cbImage.value;
+			}
+		}
+		
+		
+		/* TextNode 객체 생성 */
+		var btnAddText = document.getElementById("btn-add-text");
+		
+		btnAddText.onclick = function(){
+			
+/* 			var photos = document.getElementById("photos");
+			var lis = photos.getElementsByTagName("li");
+			var parent = lis[0]; */
+			
+			var photos = document.getElementById("photos").getElementsByTagName("li")[0];
+		
+			var txt = document.createTextNode("안녕하세요~");
+			
+/* 			parent.appendChild(txt); */
+			photos.appendChild(txt);
+		}
+		
+		var btnAddImg = document.getElementById("btn-add-img");
+		
+		/* element 객체 생성 */
+		btnAddImg.onclick = function(){
+			
+			/* 부모 엘리먼트 노드 얻기 */
+/* 			var photos = document.getElementById("photos");
+			var lis = photos.getElementsByTagName("li");
+			var parent = lis[0]; */
+			
+			var parent = document.getElementById("photos").getElementsByTagName("li")[0];
+		
+			/* 객체 생성과 값 연결 */
+			var img1 = document.createElement("img");
+			img1.src = "../image/iu1.jpg"
+			
+			/* 객체를 부모에 추가하는 작업 */
+/* 			parent.appendChild(txt); */
+			parent.appendChild(img1);
+		}
+		
+		var btnDelChild = document.getElementById("btn-del-child");
+		
+		/* TextNode 객체 삭제 */
+		btnDelChild.onclick = function(){
+			
+			/* 부모 엘리먼트 노드 얻기 */
+			var parent = document.getElementById("photos").getElementsByTagName("li")[0];
+		
+			/* 객체 생성과 값 연결 */
+			var last = parent.lastChild;
+			
+			/* 객체를 부모에 추가하는 작업 */
+			parent.removeChild(last);
+		}
+		
+		var btnCloneChild = document.getElementById("btn-clone-child");
+		
+		/* element 객체 생성 */
+		btnCloneChild.onclick = function(){
+			
+			/* 복제될 엘리먼트 노드 얻기 */
+			var parent = document.getElementById("photos");
+			
+			/* 복제될 target 선정 */
+			var target = parent.getElementsByTagName("li")[0];
+			
+			/* 복제해서 담기 */
+			var clone = target.cloneNode(true);
+			
+			/* 객체를 추가하는 작업 */
+			parent.appendChild(clone);
+		}
+		
+		/* var btnChangeNodes = document.getElementById("btn-change-nodes");
+		
+		element 객체 생성 
+		btnChangeNodes.onclick = function(){
+			
+			var photos = document.getElementsById("photos");
+			var chboxs = photos.getElementsByTagName("input");
+			
+			var cntChecked = 0;
+			// 선택 개수를 알아보는 코드
+			for(var i=0; i<chboxs.length; i++){ // 노드수만큼 반복
+				if(chboxs[i].checked){ // 체크 상태 확인
+					cntChecked++; // 체크 수를 증가
+				}
+			}
+			alert(cntChecked);
+ 			// 선택이 2개가 되지 않은 경우 메시지를 출력 
+			if(cntChecked != 2){
+				alert("노드는 두개를 선택해야 합니다");
+			} 
+ 			
+ 			var lis = [];
+ 			for(var i=0, j=0; i<chboxs.length; i++){
+ 				if(chboxs[i].checked)
+ 					lis[j++] = chboxs[i].parentNode;
+ 			}
+ 			
+ 			alert(lis[0].tagName);
+		} */
+		
+		var btnChangeNodes = document.getElementById("btn-change-nodes");
+		
+		btnChangeNodes.onclick = function(){
+			
+			var photos =  document.getElementById("photos");
+			var chboxs = photos.getElementsByTagName("input");
+			
+			var cntChecked = 0;
+			
+ 			// 선택 개수를 알아보는 코드
+			for(var i=0; i<chboxs.length; i++){ // 노드수만큼 반복
+				if(chboxs[i].checked){ // 체크 상태 확인
+					cntChecked++; // 체크 수를 증가
+				}
+			}
+ 			
+ 			// 선택이 2개가 되지 않은 경우 메시지를 출력 
+			if(cntChecked != 2){
+				alert("노드는 두개를 선택해야 합니다");
+				return
+			} 
+ 			
+ 			var lis = [];
+ 			for(var i=0, j=0; i<chboxs.length; i++){
+ 				if(chboxs[i].checked) // 체크 상태 확인
+ 					lis[j++] = chboxs[i].parentNode;
+ 			}
+ 			alert(lis[0].tagName);
+		}
+	});
+</script>
+</head>
+<body>
+	<div>
+		<ul>
+			<li>images/<input id="txt-image" type="text" /> <input
+			
+				id="btn-img-change1"  type="button" value="변경" />
+			</li>
+
+			<li>images/ <select id="cb-image">
+					<option value="iu1.jpg">첫번째 이미지</option>
+					<option value="iu2.jpg">두번째 이미지</option>
+					<option value="iu3.jpg">세번째 이미지</option>
+			</select> <input type="text" /> <input id="btn-img-change2" type="button"
+				value="변경" />
+			</li>
+			<li>
+				<input type="button" id="btn-add-text" value="텍스트추가" />
+				<input type="button" id="btn-add-img" value="이미지추가" />
+				<input type="button" id="btn-del-child" value="막내제거" />
+				<input type="button" id="btn-clone-child" value="첫째아들복제" />
+				<input type="button" id="btn-change-nodes" value="두개의 노드 교체" />
+			</li>
+		</ul>
+	</div>
+	<ul id="photos">
+		<li><input type="checkbox" /><img src="../image/iu1.jpg" /></li>
+		<li><input type="checkbox" /><img src="../image/iu2.jpg" /></li>
+		<li><input type="checkbox" /><img src="../image/iu3.jpg" /></li>
+	</ul>
+</body>
+</html>

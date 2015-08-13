@@ -9,8 +9,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<transactionManager type="JDBC"/>
 			<dataSource type ="POOLED">
 				<property name ="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-				<property name ="url" value="jdbc:sqlserver://211.238.142.250:1433;databaseName=newlecdb;"/>
-				<property name ="username" value="sist"/>
+				<property name ="url" value="jdbc:sqlserver://db.newlecture.com:1433;databaseName=newlecdb;"/>
+				<property name ="username" value="mssql"/>
 				<property name ="password" value="classf"/>								
 			</dataSource>
 		</environment>

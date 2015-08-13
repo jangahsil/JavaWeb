@@ -27,8 +27,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
 		<property name="url"
-			value="jdbc:sqlserver://211.238.142.250:1433;database=newlecdb"></property>
-		<property name="username" value="sist"></property>
+			value="jdbc:sqlserver://db.newlecture.com:1433;database=newlecdb"></property>
+		<property name="username" value="mssql"></property>
 		<property name="password" value="classf"></property>
 	</bean>
 
