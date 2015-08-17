@@ -209,8 +209,20 @@
  				if(chboxs[i].checked) // 체크 상태 확인
  					lis[j++] = chboxs[i].parentNode;
  			}
- 			alert(lis[0].tagName);
+
+ 			// 첫번째 아이 관계 떼어 내기 
+			var node = photos.removeChild(lis[0]);
+ 			
+			//photo 뒤에 붙이기
+			photos.appendChild(lis[0]);
+			
+			// 떼어진 자리 앞으로 오기 
+			photos.insertBefore(node, lis[1]);
+			
+			// 서로 바꾸는거 과제 
 		}
+		
+		
 	});
 </script>
 </head>
