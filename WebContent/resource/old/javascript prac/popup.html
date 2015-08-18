@@ -6,17 +6,18 @@
 <script type="text/javascript">
 		
 		function showDialog(url){
-			var dlg = document.createElement("div");
 			
-			dlg.style.position = "fixed";
-			dlg.style.width = "100%";
-			dlg.style.height = "100%";
-			dlg.style.left="0px";
-			dlg.style.top="0px";
-			dlg.style.background = "black";
-			dlg.style.opacity = "0.5";
+			 var screen = document.createElement("div");
 			
-			document.body.appendChild(dlg);
+			 screen.style.position = "fixed";
+			 screen.style.width = "100%";
+			 screen.style.height = "100%";
+			 screen.style.left="0px";
+			 screen.style.top="0px";
+			 screen.style.background = "black";
+			 screen.style.opacity = "0.5";
+			
+			document.body.appendChild(screen);
 			
 			var docWidth = window.innerWidth; //document.body.clientWidth;
 			var docHeight = window.innerHeight; //document.body.clientHeight;
@@ -25,16 +26,80 @@
 			var height = 500;
 			var left = (docWidth/2) - (width/2);
 			var top = (docHeight/2) - (height/2);
-			var view = document.createElement("div"); 
 			
-			view.style.position = "fixed";
-			view.style.width = "700px";
-			view.style.height = "500px";
-			view.style.left = left+"px";
-			view.style.top = top+"px";
-			view.style.background = "rgb(255,255,255)";
+			var dialog = document.createElement("div"); 
 			
-			document.body.appendChild(view);
+			dialog.style.position = "fixed";
+			dialog.style.width = "700px";
+			dialog.style.height = "500px";
+			dialog.style.left = left+"px";
+			dialog.style.top = top+"px";
+			dialog.style.background = "rgb(255,255,255)";
+			
+			document.body.appendChild(dialog); 
+			
+			var view = document.createElement("div");
+			
+			/* view.style.textAlign = "center";
+			view.style.lineHeight = height+"px";*/
+			dialog.appendChild(view); 
+			
+			var imgLoader = document.createElement("img");
+			imgLoader.src = "../image/ajax-loader.gif"
+			
+				dialog.appendChild(imgLoader); 
+			/* view.appendChild(imgLoader); */
+			
+			
+			/* --------------------------- 닫기 버튼 ------------------------------ */
+			
+			
+			var btnClose = document.createElement("input");
+			
+				btnClose.type = "button";
+				btnClose.value = "x";
+				btnClose.style.position = "absolute";
+				btnClose.style.right = "0px";
+				btnClose.style.top = "0px";
+				
+				btnClose.onclick = function(){
+					document.body.removeChild(dialog); 
+					document.body.removeChild(screen);
+				};
+				dialog.appendChild(btnClose);
+			
+			/* --------------------------- 동기형 ------------------------------ */
+			
+ 			/* // var hxr = new ActiveXObject("Microsoft.XMLHTTP"); // 인터넷 익스플로러 7.0 이상에는 사용
+			var xhr = window.XMLHttpRequest(); // 모든 브라우저에서 지원
+			xhr.open("GET","partial1.html", false); // 주소창에 쓰는 작업, JSON, HTML 상관없다. 문자열이든 주소든 상관없음
+			// xhr은 비동기가 기본. false로 동기로 먼저 실행해봄.
+			xhr.send(null);// 요청작업
+			
+			//요즘은 xhr을 안쓰고 request로 사용 JSP랑 혼돈하지 말것 
+			var request = window.XMLHttpRequest(); 
+			request.open("GET","partial1.jsp", false);
+			request.send(null);
+			
+			alert(xhr.responseText);
+  */
+ 
+ 			/* --------------------------- 비동기형 -----------------------------  */
+ 			
+ 			var request = window.XMLHttpRequest(); 
+			/* request.open("GET","partial1.html", true);
+			 */
+			 request.open("GET",url, true);
+			 request.send(null);
+			
+			request.onreadystatechange = function (){
+				if(request.readyState == 4){
+					dialog.removeChild(imgLoader);
+					view.innerHTML = request.responseText;  
+					//view.innerHTML = request.responseText; // 대치
+					//view.innerHTML += request.responseText; // 추가
+				}
+			} 
 		}
 		
 		window.addEventListener("load", function(){
@@ -49,26 +114,6 @@
 </head>
 <body>
 		<input type="button" value="창 띄우기" id="btn-show-dlg" /> 
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
-		<br /><br /><br /><br /><br />
 <!-- 	<div style="position:absolute; left: 0px; top: 0px; opacity:0.5; width:100%; height: 100%; background: black;">
 	</div> -->
 </body>
