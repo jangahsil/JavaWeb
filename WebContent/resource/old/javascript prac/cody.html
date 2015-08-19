@@ -22,7 +22,7 @@
 		float: left;
 	}
 	
-	#codi-item{
+	#codi-box{
 		width: 200px;
 		height: 600px;
 		float: left;
@@ -30,14 +30,83 @@
 		background: rgb(183,240,170);
 	}
 	
-	#codi-item img{
+	#codi-box li{
+		width: 150px;
+		height: 150px;
+	}
+	
+	#codi-box img{
 		width: 80px;
 	}
 	
 
 </style>
 <script type="text/javascript">
+	window.addEventListener("load", function(){
+		
+		
+		var codiList = document.querySelector("#codi-box ul");
+		
+			codiList.addEventListener("click", function(){
+				
+				alert("ttt")
+			
+		},true);
+			
+		
+		var codiBox = document.querySelector("#codi-box");
+		
+		codiBox.addEventListener("click", function(event){
+			
+			if(event.target.nodeName == "LI") 
+				alert("target : "+ event.target.dataset.code);
+			
+			else if(event.target.nodeName == "IMG") 
+				alert("target : "+ event.target.parentNode.dataset.code);
+			
+			event.stopPropagation(); // 버블링 막기 
+			event.preventDefault(); // 기본 액션 막기
+			
+		},true);
+		
+		
+		var btnFile = document.querySelector("#button-box span");
+		
+		btnFile.onclick = function(){
+			
 
+			// 과거 방식 
+			var event = document.createEvent("MouseEvent");
+			event.initEvent("click", true, true);
+			
+			var file = document.querySelector("#button-box input");
+			file.dispatchEvent(event);
+			
+ 			/* 
+ 			// 웹표준 방식 = 최근 방식 익스는 안됨 
+ 			var event = new MouseEvent("click", {
+				'view' : window,
+				'bubbles' : true, 
+				'cancelable' : true 
+			}); 
+			
+ 			var inputFile = document.querySelector("#button-box input");
+			inputFile.dispatchEvent(event);  */
+			
+		};
+		
+		/* var codiBox = document.querySelector("#codi-box");
+		
+		codiBox.onclick = function(event){
+			
+			if(event.target.nodeName == "LI") 
+				alert("target : "+ event.target.dataset.code);
+			
+			else if(event.target.nodeName == "IMG") 
+				alert("target : "+ event.target.parentNode.dataset.code);
+		 }; */
+		
+	});
 </script>
 </head>
 <body>
@@ -45,13 +114,17 @@
 		<h1>나의 코디</h1>
 		<div>
 			<div id="codi-canvas"></div>
-			<div id="codi-item">
+			<div id="codi-box">
 				<ul>
-					<li><img src="../image/One003Lucl.png" /></li>
-					<li><img src="../image/One012MAYK.png" /></li>
-					<li><img src="../image/Shoes024Converse.PNG" /></li>
-					<li><img src="../image/Top021Hm.png" /></li>
+					<li data-code="1"><a href="calc.html"><img src="../image/One003Lucl.png" /></a></li>
+					<li data-code="2"><img src="../image/One012MAYK.png" /></li>
+					<li data-code="3"><img src="../image/Shoes024Converse.PNG" /></li>
+					<li data-code="4"><img src="../image/Top021Hm.png" /></li>
 				</ul>
+			</div>
+			<div id="button-box">
+				<input type="file" style="display: none;" id="f"/>
+				<span style="background: pink; cursor:pointer;">파일선택</span>
 			</div>
 		</div>		
 	</section>
